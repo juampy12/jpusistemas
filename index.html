@@ -64,7 +64,7 @@
   .top-cta:hover{background:var(--blue-2);transform:translateY(-1px)}
 
   /* ---- hero ---- */
-  .hero{position:relative;padding-block:clamp(3.2rem,7vw,5.5rem) clamp(2rem,4vw,3rem);
+  .hero{position:relative;padding-block:clamp(2.4rem,5vw,4rem) clamp(1.4rem,3vw,2.2rem);
     overflow:hidden;text-align:center;isolation:isolate}
   .hero::before{content:"";position:absolute;left:50%;top:-10%;transform:translateX(-50%);
     width:120%;height:60%;z-index:0;pointer-events:none;
@@ -97,7 +97,7 @@
   .cta-note{font-family:var(--ff-mono);font-size:.76rem;color:var(--fg-faint);margin-top:1.1rem;
     letter-spacing:.02em;text-align:center}
 
-  .mockstage{perspective:1300px;margin-top:3rem}
+  .mockstage{perspective:1300px;margin-top:2rem}
   .mockups{position:relative;max-width:980px;margin:0 auto;height:clamp(250px,40vw,430px);
     transform-style:preserve-3d;transform:rotateX(6deg);transition:transform .25s ease}
   .mock{position:absolute;top:0;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;
@@ -118,9 +118,9 @@
   }
 
   /* ---- secciones ---- */
-  section.block{padding-block:clamp(3rem,7vw,5.5rem)}
+  section.block{padding-block:clamp(2.1rem,5vw,3.6rem)}
   .band{background:var(--panel);border-block:1px solid var(--line)}
-  .section-head{max-width:60ch;margin-bottom:clamp(2rem,4vw,3rem)}
+  .section-head{max-width:60ch;margin-bottom:clamp(1.3rem,3vw,2rem)}
   .section-head h2{font-family:var(--ff-display);font-weight:600;font-size:clamp(1.9rem,4.2vw,3rem);
     letter-spacing:-.01em;margin-top:1rem;color:var(--navy)}
   .section-head h2 em{font-style:italic;color:var(--blue)}
@@ -333,6 +333,14 @@
   .navy-cta .midcta h2{color:#fff}
   .navy-cta .midcta p{color:rgba(255,255,255,.82)}
 
+
+  /* ---- nav de salto ---- */
+  .nav{display:flex;gap:1.5rem;align-items:center}
+  .nav a{font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.02em;color:var(--fg-dim);text-decoration:none;transition:color .15s ease}
+  .nav a:hover{color:var(--blue)}
+  #servicios,#rubros,#precio{scroll-margin-top:76px}
+  @media (max-width:860px){ .nav{display:none} }
+
 </style>
 </head>
 <body>
@@ -342,6 +350,12 @@
     <a class="brand" href="#hero" aria-label="JPUNTO — inicio">
       <img src="jpunto-logo-color.png" alt="JPUNTO — Sistemas que simplifican tu negocio" style="height:30px;width:auto;display:block">
     </a>
+    <nav class="nav">
+      <a href="#servicios">Qué hago</a>
+      <a href="#rubros">Rubros</a>
+      <a href="#sistemas">Sistemas</a>
+      <a href="#precio">Precio</a>
+    </nav>
     <a class="top-cta" href="https://wa.me/5493731400700" target="_blank" rel="noopener">Hablemos →</a>
   </div>
 </header>
@@ -372,7 +386,7 @@
   </div>
 </section>
 
-<section class="block band">
+<section class="block band" id="servicios">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Qué hago</span>
@@ -399,7 +413,7 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block" id="rubros">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Para quién</span>
@@ -585,7 +599,7 @@
   </div>
 </section>
 
-<section class="block band">
+<section class="block band" id="precio">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Presupuesto</span>
