@@ -342,6 +342,26 @@
   #servicios,#rubros,#precio{scroll-margin-top:76px}
   @media (max-width:860px){ .nav{display:none} }
 
+
+  /* ---- circuito vertical en mobile + FAB mas chico ---- */
+  .flow-mobile{display:none}
+  .fm-node{width:min(240px,82%);text-align:center;background:#fff;border:1px solid var(--line-2);
+    border-radius:12px;padding:.7rem 1rem;font-weight:600;color:var(--navy);box-shadow:0 1px 2px var(--shadow)}
+  .fm-node.src{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .fm-arrow{width:2px;height:16px;background:var(--blue);opacity:.55;border-radius:2px}
+  .fm-ai{margin-top:1rem;width:min(300px,92%);text-align:center;background:var(--blue-soft);
+    border:1px solid var(--blue);border-radius:14px;padding:.8rem 1rem}
+  .fm-ai b{display:block;color:var(--blue);font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.08em;
+    text-transform:uppercase;margin-bottom:.25rem}
+  .fm-ai span{color:var(--fg-dim);font-size:.9rem;line-height:1.45}
+  @media (max-width:720px){
+    .flow3d > figure,.flow-sec .scan{display:none}
+    .flow-cap{display:none}
+    .flow-mobile{display:flex;flex-direction:column;align-items:center;gap:.4rem;margin-top:.4rem}
+    .wa-fab{width:50px;height:50px}
+    .wa-fab svg{width:26px;height:26px}
+  }
+
 </style>
 </head>
 <body>
@@ -474,6 +494,14 @@
           <g class="cnode"><rect x="834" y="224" width="132" height="52" rx="12"/><text x="900" y="257" text-anchor="middle">Reportes</text></g>
         </svg>
         </figure>
+        <div class="flow-mobile" aria-hidden="true">
+          <div class="fm-node">Venta</div><div class="fm-arrow"></div>
+          <div class="fm-node">Pago</div><div class="fm-arrow"></div>
+          <div class="fm-node src">Stock</div><div class="fm-arrow"></div>
+          <div class="fm-node src">Caja</div><div class="fm-arrow"></div>
+          <div class="fm-node">Reportes</div>
+          <div class="fm-ai"><b>Asistente IA</b><span>Lee Stock y Caja en tiempo real y te avisa lo que importa.</span></div>
+        </div>
       </div>
       <p class="flow-cap">Venta → Pago → Stock → Caja → Reportes · la IA lee todo y te avisa</p>
     </div>
