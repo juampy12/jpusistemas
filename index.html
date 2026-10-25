@@ -362,6 +362,21 @@
     .wa-fab svg{width:26px;height:26px}
   }
 
+
+  /* ---- animacion del circuito vertical (mobile) ---- */
+  .fm-arrow{position:relative;height:20px;overflow:visible}
+  .fm-arrow::after{content:"";position:absolute;left:50%;top:-1px;width:6px;height:6px;margin-left:-3px;
+    border-radius:50%;background:var(--blue);box-shadow:0 0 7px var(--blue);animation:fmflow 1.5s linear infinite}
+  .flow-mobile>div:nth-child(2)::after{animation-delay:0s}
+  .flow-mobile>div:nth-child(4)::after{animation-delay:.18s}
+  .flow-mobile>div:nth-child(6)::after{animation-delay:.36s}
+  .flow-mobile>div:nth-child(8)::after{animation-delay:.54s}
+  @keyframes fmflow{0%{transform:translateY(0);opacity:0}25%{opacity:1}75%{opacity:1}100%{transform:translateY(17px);opacity:0}}
+  .fm-node.src{animation:fmglow 2.6s ease-in-out infinite}
+  @keyframes fmglow{0%,100%{box-shadow:0 0 0 3px var(--blue-soft)}50%{box-shadow:0 0 0 3px var(--blue-soft),0 0 16px -2px rgba(37,99,235,.5)}}
+  .fm-ai{animation:fmpulse 2.6s ease-in-out infinite}
+  @keyframes fmpulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.25)}50%{box-shadow:0 0 0 8px rgba(37,99,235,0)}}
+
 </style>
 </head>
 <body>
