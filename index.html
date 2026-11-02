@@ -393,16 +393,16 @@
 
 
   /* ---- intro 3D (1 vez por sesion, salteable) ---- */
-  .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#fff;
-    opacity:1;animation:introOut .55s ease 1.95s forwards}
+  .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#0b2d5b;
+    opacity:1;animation:introOut .55s ease 2.1s forwards}
   .intro::before{content:"";position:absolute;width:70vmin;height:70vmin;border-radius:50%;
-    background:radial-gradient(circle,rgba(37,99,235,.20),transparent 62%);filter:blur(8px);
+    background:radial-gradient(circle,rgba(37,99,235,.55),transparent 60%);filter:blur(6px);
     animation:introGlow 1.9s ease-in-out .6s both}
   .intro-logo{width:min(360px,74vw);height:auto;position:relative;z-index:1;transform-style:preserve-3d;
     animation:introFlip 1.05s cubic-bezier(.16,.84,.34,1) both}
   .intro-skip{position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:0;right:0;
     text-align:center;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--fg-faint);opacity:0;animation:introFade .5s ease 1.2s forwards}
+    color:rgba(255,255,255,.6);opacity:0;animation:introFade .5s ease 1.2s forwards}
   @keyframes introFlip{0%{opacity:0;transform:perspective(1000px) rotateY(-72deg) translateZ(-90px) scale(.82)}
     55%{opacity:1}100%{opacity:1;transform:perspective(1000px) rotateY(0) translateZ(0) scale(1)}}
   @keyframes introGlow{0%{opacity:0;transform:scale(.55)}45%{opacity:1}100%{opacity:.7;transform:scale(1.05)}}
@@ -415,7 +415,7 @@
 <body>
 
 <div class="intro" id="intro" role="presentation" aria-hidden="true">
-  <img class="intro-logo" src="jpunto-logo-color.png" alt="">
+  <img class="intro-logo" src="jpunto-logo.png" alt="">
   <span class="intro-skip">Tocá para entrar</span>
 </div>
 <script>
@@ -431,7 +431,7 @@
   function skip(){ el.style.transition='opacity .3s ease'; el.style.opacity='0'; el.style.pointerEvents='none'; setTimeout(done,320); }
   el.addEventListener('click',skip);
   el.addEventListener('touchstart',function(){skip();},{passive:true});
-  setTimeout(done,2700);
+  setTimeout(done,3000);
 })();
 </script>
 
