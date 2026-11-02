@@ -414,6 +414,9 @@
   .vidframe .live b{width:6px;height:6px;border-radius:50%;background:#4fc07a;box-shadow:0 0 8px #4fc07a}
   .demo-note{color:rgba(255,255,255,.58);font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.03em;margin-top:.9rem}
   @media(max-width:860px){ .demo-grid{grid-template-columns:1fr} .vidframe{max-width:520px;margin:0 auto} }
+  .vidframe.portrait{max-width:300px;margin:0 auto}
+  .vidframe.portrait .bar{display:none}
+  .vidframe.portrait .live{top:12px}
 
   /* ==== intro profesional: grilla 3D + logo 3D + reveal + % + cortina ==== */
   .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;
@@ -566,10 +569,12 @@
       </a>
       <p class="demo-note">Demostración · tu sistema se desarrolla a la medida del negocio.</p>
     </div>
-    <figure class="vidframe reveal">
+    <figure class="vidframe reveal" id="vidframe">
       <div class="bar"><i></i><i></i><i></i><span>jpunto · punto de venta</span></div>
       <span class="live"><b></b>EN VIVO</span>
       <video id="demoVideo" src="jpunto-reel.mp4" poster="jpunto-reel-poster.jpg" muted loop playsinline autoplay preload="metadata"
+             data-desk="jpunto-reel.mp4" data-desk-poster="jpunto-reel-poster.jpg"
+             data-mob="jpunto-reel-mobile.mp4" data-mob-poster="jpunto-reel-mobile-poster.jpg"
              aria-label="Demostración del sistema de punto de venta JPUNTO"></video>
     </figure>
   </div>
@@ -936,9 +941,18 @@
 </script>
 <script>
 (function(){
-  var v=document.getElementById('demoVideo');
+  var v=document.getElementById('demoVideo'), fig=document.getElementById('vidframe');
   if(!v) return;
   v.muted=true; // asegura autoplay en todos los navegadores
+  var mq=window.matchMedia('(max-width:860px)');
+  function apply(){
+    var mob=mq.matches;
+    var src=mob?v.dataset.mob:v.dataset.desk, pos=mob?v.dataset.mobPoster:v.dataset.deskPoster;
+    if(src && v.getAttribute('src')!==src){ v.setAttribute('src',src); if(pos)v.setAttribute('poster',pos); v.load(); }
+    if(fig) fig.classList.toggle('portrait',mob);
+  }
+  apply();
+  if(mq.addEventListener) mq.addEventListener('change',apply); else if(mq.addListener) mq.addListener(apply);
   var tryPlay=function(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); };
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tryPlay(); else v.pause(); }); },{threshold:0.25});
