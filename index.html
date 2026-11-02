@@ -423,7 +423,8 @@
   var seen=false, reduce=false;
   try{seen=sessionStorage.getItem('jpu_intro')==='1';}catch(e){}
   try{reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}
-  if(seen){ if(el.parentNode) el.parentNode.removeChild(el); return; }
+  var force=false; try{force=location.hash==='#intro';}catch(e){}
+  if(seen && !force){ if(el.parentNode) el.parentNode.removeChild(el); return; }
   try{sessionStorage.setItem('jpu_intro','1');}catch(e){}
   var root=document.documentElement, prev=root.style.overflow; root.style.overflow='hidden';
   function done(){ root.style.overflow=prev||''; if(el&&el.parentNode) el.parentNode.removeChild(el); }
