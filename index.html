@@ -392,46 +392,70 @@
   .navy-results .result p{color:rgba(255,255,255,.78)}
 
 
-  /* ---- intro 3D (1 vez por sesion, salteable) ---- */
-  .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#0b2d5b;
-    opacity:1;animation:introOut .55s ease 2.1s forwards}
-  .intro::before{content:"";position:absolute;width:70vmin;height:70vmin;border-radius:50%;
-    background:radial-gradient(circle,rgba(37,99,235,.55),transparent 60%);filter:blur(6px);
-    animation:introGlow 1.9s ease-in-out .6s both}
-  .intro-logo{width:min(360px,74vw);height:auto;position:relative;z-index:1;transform-style:preserve-3d;
-    animation:introFlip 1.05s cubic-bezier(.16,.84,.34,1) both}
+  /* ==== intro profesional (preloader): grilla 3D + reveal + progreso + cortina ==== */
+  .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;
+    background:#0b2d5b;transform:translateY(0);
+    animation:introCurtain .8s cubic-bezier(.76,0,.24,1) 2.45s forwards}
+  .intro-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .intro-bg::before{content:"";position:absolute;left:50%;bottom:-18%;width:200%;height:92%;
+    transform:translateX(-50%) perspective(430px) rotateX(62deg);transform-origin:50% 100%;
+    background:linear-gradient(rgba(37,99,235,.30) 1px,transparent 1px) 0 0/46px 46px,
+      linear-gradient(90deg,rgba(37,99,235,.30) 1px,transparent 1px) 0 0/46px 46px;
+    -webkit-mask-image:radial-gradient(60% 74% at 50% 100%,#000,transparent 72%);
+    mask-image:radial-gradient(60% 74% at 50% 100%,#000,transparent 72%);
+    opacity:.55;animation:introGrid 9s linear infinite}
+  .intro-bg::after{content:"";position:absolute;left:50%;top:-6%;width:88vmin;height:88vmin;
+    transform:translateX(-50%);border-radius:50%;
+    background:radial-gradient(circle,rgba(37,99,235,.55),transparent 60%);filter:blur(10px);
+    animation:introGlow 2.2s ease-in-out .3s both}
+  .intro-core{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+  .intro-logowrap{position:relative;overflow:hidden;line-height:0}
+  .intro-logo{display:block;width:min(360px,76vw);height:auto;clip-path:inset(0 0 0 0);
+    animation:introWipe 1s cubic-bezier(.16,.84,.34,1) .25s both}
+  .intro-shine{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
+    transform:translateX(-130%);animation:introShine 1s ease .75s both}
+  .intro-bar{width:min(220px,52vw);height:3px;border-radius:999px;background:rgba(255,255,255,.15);overflow:hidden}
+  .intro-bar i{display:block;height:100%;width:100%;border-radius:999px;transform-origin:left;
+    background:linear-gradient(90deg,#2563EB,#8fb3ff);animation:introBar 2s cubic-bezier(.5,0,.2,1) .2s both}
   .intro-skip{position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:0;right:0;
-    text-align:center;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
-    color:rgba(255,255,255,.6);opacity:0;animation:introFade .5s ease 1.2s forwards}
-  @keyframes introFlip{0%{opacity:0;transform:perspective(1000px) rotateY(-72deg) translateZ(-90px) scale(.82)}
-    55%{opacity:1}100%{opacity:1;transform:perspective(1000px) rotateY(0) translateZ(0) scale(1)}}
-  @keyframes introGlow{0%{opacity:0;transform:scale(.55)}45%{opacity:1}100%{opacity:.7;transform:scale(1.05)}}
-  @keyframes introFade{to{opacity:.9}}
-  @keyframes introOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+    text-align:center;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.5);opacity:0;animation:introFade .5s ease 1.35s forwards}
+  @keyframes introWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes introShine{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
+  @keyframes introBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes introGlow{0%{opacity:0;transform:translateX(-50%) scale(.6)}45%{opacity:1}100%{opacity:.75;transform:translateX(-50%) scale(1.05)}}
+  @keyframes introGrid{to{background-position:0 46px,0 46px}}
+  @keyframes introFade{to{opacity:1}}
+  @keyframes introCurtain{to{transform:translateY(-100%)}}
 
 </style>
 </head>
 <body>
 
 <div class="intro" id="intro" role="presentation" aria-hidden="true">
-  <img class="intro-logo" src="jpunto-logo.png" alt="">
+  <div class="intro-bg"></div>
+  <div class="intro-core">
+    <div class="intro-logowrap"><img class="intro-logo" src="jpunto-logo.png" alt=""><span class="intro-shine"></span></div>
+    <div class="intro-bar"><i></i></div>
+  </div>
   <span class="intro-skip">Tocá para entrar</span>
 </div>
 <script>
 (function(){
   var el=document.getElementById('intro'); if(!el) return;
-  var seen=false, reduce=false;
-  try{seen=sessionStorage.getItem('jpu_intro')==='1';}catch(e){}
-  try{reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}
+  var seen=false; try{seen=sessionStorage.getItem('jpu_intro')==='1';}catch(e){}
   var force=false; try{force=location.hash==='#intro';}catch(e){}
   if(seen && !force){ if(el.parentNode) el.parentNode.removeChild(el); return; }
   try{sessionStorage.setItem('jpu_intro','1');}catch(e){}
   var root=document.documentElement, prev=root.style.overflow; root.style.overflow='hidden';
   function done(){ root.style.overflow=prev||''; if(el&&el.parentNode) el.parentNode.removeChild(el); }
-  function skip(){ el.style.transition='opacity .3s ease'; el.style.opacity='0'; el.style.pointerEvents='none'; setTimeout(done,320); }
+  function skip(){ el.style.animation='none';
+    el.style.transition='transform .55s cubic-bezier(.76,0,.24,1)'; el.style.transform='translateY(-100%)';
+    el.style.pointerEvents='none'; setTimeout(done,560); }
   el.addEventListener('click',skip);
   el.addEventListener('touchstart',function(){skip();},{passive:true});
-  setTimeout(done,3000);
+  setTimeout(done,3600);
 })();
 </script>
 
