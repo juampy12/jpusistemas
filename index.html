@@ -391,6 +391,29 @@
   .navy-results .result h3{color:#fff;font-size:1.18rem}
   .navy-results .result p{color:rgba(255,255,255,.78)}
 
+  /* ==== demo video ==== */
+  .navy-demo{background:radial-gradient(70% 130% at 50% -10%,rgba(37,99,235,.30),transparent 62%),var(--navy)}
+  .navy-demo .eyebrow,.navy-demo .eyebrow .dot{color:#8fb3ff;background-color:transparent}
+  .navy-demo .eyebrow .dot{background:#8fb3ff}
+  .navy-demo .section-head{text-align:center;margin-inline:auto}
+  .navy-demo .section-head h2{color:#fff}
+  .navy-demo .section-head p{color:rgba(255,255,255,.82);margin-inline:auto}
+  .vidframe{position:relative;max-width:960px;margin:0 auto;border:1px solid rgba(255,255,255,.14);
+    border-radius:14px;overflow:hidden;background:#0B2D5B;box-shadow:0 44px 90px -42px rgba(0,0,0,.65)}
+  .vidframe .bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem;background:#0a2347;border-bottom:1px solid rgba(255,255,255,.1)}
+  .vidframe .bar i{width:10px;height:10px;border-radius:50%;background:#2e4e7e}
+  .vidframe .bar i:nth-child(1){background:#e8705f}.vidframe .bar i:nth-child(2){background:#f0b43f}.vidframe .bar i:nth-child(3){background:#4fc07a}
+  .vidframe .bar span{font-family:var(--ff-mono);font-size:.68rem;color:rgba(255,255,255,.55);margin-left:.5rem;letter-spacing:.03em}
+  .vidframe .vwrap{position:relative;line-height:0}
+  .vidframe video{width:100%;display:block;background:#0B2D5B}
+  .playbtn{position:absolute;inset:0;margin:auto;width:76px;height:76px;border:none;border-radius:50%;
+    background:var(--blue);color:#fff;display:grid;place-items:center;cursor:pointer;
+    box-shadow:0 16px 36px -10px rgba(37,99,235,.75);transition:transform .2s,background .2s}
+  .playbtn:hover{transform:scale(1.07);background:#1d4fd0}
+  .playbtn svg{width:30px;height:30px;margin-left:4px}
+  .playbtn.hide{display:none}
+  .demo-note{text-align:center;color:rgba(255,255,255,.6);font-family:var(--ff-mono);font-size:.74rem;
+    letter-spacing:.03em;margin-top:1rem}
 
   /* ==== intro profesional: grilla 3D + logo 3D + reveal + % + cortina ==== */
   .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;
@@ -490,6 +513,7 @@
     </a>
     <nav class="nav">
       <a href="#servicios">Qué hago</a>
+      <a href="#demo">En acción</a>
       <a href="#rubros">Rubros</a>
       <a href="#sistemas">Sistemas</a>
       <a href="#precio">Precio</a>
@@ -521,6 +545,27 @@
       <figure class="mock front"><div class="bar"><i></i><i></i><i></i></div><img src="deli-pos.png" alt="Punto de venta en funcionamiento"></figure>
     </div>
     </div>
+  </div>
+</section>
+
+<section class="block navy-demo" id="demo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>En acción</span>
+      <h2>Mirá el sistema funcionando.</h2>
+      <p>Un recorrido real: vender, cobrar, controlar el stock, ver reportes, manejar varias sucursales y preguntarle al asistente con IA.</p>
+    </div>
+    <figure class="vidframe reveal">
+      <div class="bar"><i></i><i></i><i></i><span>jpunto · punto de venta</span></div>
+      <div class="vwrap">
+        <video id="demoVideo" src="jpunto-demo.mp4" poster="jpunto-demo-poster.jpg" preload="none" playsinline
+               aria-label="Demostración del sistema de punto de venta JPUNTO"></video>
+        <button class="playbtn" id="demoPlay" type="button" aria-label="Reproducir la demostración">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </figure>
+    <p class="demo-note">Demostración · el sistema real se desarrolla a la medida de cada negocio.</p>
   </div>
 </section>
 
@@ -882,6 +927,16 @@
     els.forEach(function(e){ obs.observe(e); });
     setTimeout(function(){ els.forEach(function(e){ var r=e.getBoundingClientRect(); if(r.top < (window.innerHeight||0)) e.classList.add('in'); }); }, 400);
   })();
+</script>
+<script>
+(function(){
+  var v=document.getElementById('demoVideo'), b=document.getElementById('demoPlay');
+  if(!v||!b) return;
+  b.addEventListener('click',function(){ v.play(); });
+  v.addEventListener('play',function(){ b.classList.add('hide'); if(!v.hasAttribute('controls')) v.setAttribute('controls',''); });
+  v.addEventListener('pause',function(){ if(v.currentTime>0 && !v.ended) return; b.classList.remove('hide'); });
+  v.addEventListener('ended',function(){ b.classList.remove('hide'); });
+})();
 </script>
 <a class="wa-fab" href="https://wa.me/5493731400700" target="_blank" rel="noopener" aria-label="Escribime por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg></a>
 <div class="lb" id="lb" aria-hidden="true"><button class="lb-x" type="button" aria-label="Cerrar">&times;</button><img class="lb-img" alt=""><div class="lb-hint">Pellizcá para acercar · tocá afuera para cerrar</div></div>
