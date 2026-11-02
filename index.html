@@ -434,6 +434,17 @@
   @keyframes introFade{to{opacity:1}}
   @keyframes introCurtain{to{transform:translateY(-100%)}}
 
+
+  @media (prefers-reduced-motion:reduce){
+    .intro{animation:introCurtain .8s cubic-bezier(.76,0,.24,1) 2.6s forwards!important}
+    .intro-3d{animation:intro3d 1.2s cubic-bezier(.16,.84,.34,1) .15s both!important}
+    .intro-logo{animation:introWipe 1s cubic-bezier(.16,.84,.34,1) .3s both!important}
+    .intro-shine{animation:introShine 1s ease .8s both!important}
+    .intro-bg::before{animation:introGrid 9s linear infinite!important}
+    .intro-bg::after{animation:introGlow 2.2s ease-in-out .3s both!important}
+    .intro-skip{animation:introFade .5s ease 1.5s forwards!important}
+  }
+
 </style>
 </head>
 <body>
@@ -456,15 +467,12 @@
   try{sessionStorage.setItem('jpu_intro','1');}catch(e){}
   var root=document.documentElement, prev=root.style.overflow; root.style.overflow='hidden';
   var pct=document.getElementById('introPct'), bar=document.querySelector('.intro-bar i');
-  var reduce=false; try{reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}
-  if(reduce){ if(pct)pct.textContent='100%'; if(bar)bar.style.width='100%'; }
-  else{ var st=null,DUR=2150;
-    function tick(t){ if(st===null)st=t; var k=Math.min(1,(t-st)/DUR);
-      var v=Math.round((1-Math.pow(1-k,2))*100);
-      if(pct)pct.textContent=v+'%'; if(bar)bar.style.width=v+'%';
-      if(k<1 && el.parentNode) requestAnimationFrame(tick); }
-    requestAnimationFrame(tick);
-  }
+  var st=null,DUR=2150;
+  function tick(t){ if(st===null)st=t; var k=Math.min(1,(t-st)/DUR);
+    var v=Math.round((1-Math.pow(1-k,2))*100);
+    if(pct)pct.textContent=v+'%'; if(bar)bar.style.width=v+'%';
+    if(k<1 && el.parentNode) requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
   function done(){ root.style.overflow=prev||''; if(el&&el.parentNode) el.parentNode.removeChild(el); }
   function skip(){ el.style.animation='none';
     el.style.transition='transform .55s cubic-bezier(.76,0,.24,1)'; el.style.transform='translateY(-100%)';
