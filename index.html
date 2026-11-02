@@ -391,29 +391,29 @@
   .navy-results .result h3{color:#fff;font-size:1.18rem}
   .navy-results .result p{color:rgba(255,255,255,.78)}
 
-  /* ==== demo video ==== */
+  /* ==== demo video (reel) ==== */
   .navy-demo{background:radial-gradient(70% 130% at 50% -10%,rgba(37,99,235,.30),transparent 62%),var(--navy)}
   .navy-demo .eyebrow,.navy-demo .eyebrow .dot{color:#8fb3ff;background-color:transparent}
   .navy-demo .eyebrow .dot{background:#8fb3ff}
-  .navy-demo .section-head{text-align:center;margin-inline:auto}
-  .navy-demo .section-head h2{color:#fff}
-  .navy-demo .section-head p{color:rgba(255,255,255,.82);margin-inline:auto}
-  .vidframe{position:relative;max-width:960px;margin:0 auto;border:1px solid rgba(255,255,255,.14);
-    border-radius:14px;overflow:hidden;background:#0B2D5B;box-shadow:0 44px 90px -42px rgba(0,0,0,.65)}
-  .vidframe .bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem;background:#0a2347;border-bottom:1px solid rgba(255,255,255,.1)}
-  .vidframe .bar i{width:10px;height:10px;border-radius:50%;background:#2e4e7e}
+  .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(1.6rem,4vw,3.2rem);align-items:center}
+  .demo-copy h2{font-family:var(--ff-display);font-weight:600;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.05;color:#fff;margin-top:.6rem}
+  .demo-copy>p{color:rgba(255,255,255,.82);margin-top:.9rem;font-size:1.05rem;max-width:46ch}
+  .demo-points{list-style:none;margin:1.3rem 0 1.6rem;display:grid;gap:.65rem}
+  .demo-points li{display:flex;gap:.6rem;align-items:center;color:rgba(255,255,255,.9);font-size:1rem}
+  .demo-points li svg{width:20px;height:20px;color:#8fb3ff;flex:0 0 auto}
+  .vidframe{position:relative;margin:0;border:1px solid rgba(255,255,255,.14);
+    border-radius:14px;overflow:hidden;background:#0B2D5B;box-shadow:0 40px 80px -40px rgba(0,0,0,.65)}
+  .vidframe .bar{display:flex;align-items:center;gap:.4rem;padding:.55rem .75rem;background:#0a2347;border-bottom:1px solid rgba(255,255,255,.1)}
+  .vidframe .bar i{width:9px;height:9px;border-radius:50%;background:#2e4e7e}
   .vidframe .bar i:nth-child(1){background:#e8705f}.vidframe .bar i:nth-child(2){background:#f0b43f}.vidframe .bar i:nth-child(3){background:#4fc07a}
-  .vidframe .bar span{font-family:var(--ff-mono);font-size:.68rem;color:rgba(255,255,255,.55);margin-left:.5rem;letter-spacing:.03em}
-  .vidframe .vwrap{position:relative;line-height:0}
+  .vidframe .bar span{font-family:var(--ff-mono);font-size:.66rem;color:rgba(255,255,255,.55);margin-left:.5rem;letter-spacing:.03em}
   .vidframe video{width:100%;display:block;background:#0B2D5B}
-  .playbtn{position:absolute;inset:0;margin:auto;width:76px;height:76px;border:none;border-radius:50%;
-    background:var(--blue);color:#fff;display:grid;place-items:center;cursor:pointer;
-    box-shadow:0 16px 36px -10px rgba(37,99,235,.75);transition:transform .2s,background .2s}
-  .playbtn:hover{transform:scale(1.07);background:#1d4fd0}
-  .playbtn svg{width:30px;height:30px;margin-left:4px}
-  .playbtn.hide{display:none}
-  .demo-note{text-align:center;color:rgba(255,255,255,.6);font-family:var(--ff-mono);font-size:.74rem;
-    letter-spacing:.03em;margin-top:1rem}
+  .vidframe .live{position:absolute;top:calc(.55rem + 30px);right:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;
+    background:rgba(11,45,91,.78);color:#fff;font-family:var(--ff-mono);font-size:.64rem;font-weight:600;letter-spacing:.08em;
+    padding:4px 10px;border-radius:999px;backdrop-filter:blur(3px)}
+  .vidframe .live b{width:6px;height:6px;border-radius:50%;background:#4fc07a;box-shadow:0 0 8px #4fc07a}
+  .demo-note{color:rgba(255,255,255,.58);font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.03em;margin-top:.9rem}
+  @media(max-width:860px){ .demo-grid{grid-template-columns:1fr} .vidframe{max-width:520px;margin:0 auto} }
 
   /* ==== intro profesional: grilla 3D + logo 3D + reveal + % + cortina ==== */
   .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;
@@ -549,23 +549,29 @@
 </section>
 
 <section class="block navy-demo" id="demo">
-  <div class="wrap">
-    <div class="section-head reveal">
+  <div class="wrap demo-grid">
+    <div class="demo-copy reveal">
       <span class="eyebrow"><span class="dot"></span>En acción</span>
       <h2>Mirá el sistema funcionando.</h2>
-      <p>Un recorrido real: vender, cobrar, controlar el stock, ver reportes, manejar varias sucursales y preguntarle al asistente con IA.</p>
+      <p>Así se ve por dentro: rápido, ordenado y con inteligencia artificial de tu lado.</p>
+      <ul class="demo-points">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Vendé y cobrá en segundos (efectivo, tarjeta o QR)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7"/></svg>Control de stock en tiempo real, con alertas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reportes y caja al instante</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 7V4M9 13h.01M15 13h.01"/></svg>Un asistente con IA que te responde</li>
+      </ul>
+      <a class="btn btn-gold" href="https://wa.me/5493731400700" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>
+        Quiero uno así
+      </a>
+      <p class="demo-note">Demostración · tu sistema se desarrolla a la medida del negocio.</p>
     </div>
     <figure class="vidframe reveal">
       <div class="bar"><i></i><i></i><i></i><span>jpunto · punto de venta</span></div>
-      <div class="vwrap">
-        <video id="demoVideo" src="jpunto-demo.mp4" poster="jpunto-demo-poster.jpg" preload="none" playsinline
-               aria-label="Demostración del sistema de punto de venta JPUNTO"></video>
-        <button class="playbtn" id="demoPlay" type="button" aria-label="Reproducir la demostración">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-      </div>
+      <span class="live"><b></b>EN VIVO</span>
+      <video id="demoVideo" src="jpunto-reel.mp4" poster="jpunto-reel-poster.jpg" muted loop playsinline autoplay preload="metadata"
+             aria-label="Demostración del sistema de punto de venta JPUNTO"></video>
     </figure>
-    <p class="demo-note">Demostración · el sistema real se desarrolla a la medida de cada negocio.</p>
   </div>
 </section>
 
@@ -930,12 +936,14 @@
 </script>
 <script>
 (function(){
-  var v=document.getElementById('demoVideo'), b=document.getElementById('demoPlay');
-  if(!v||!b) return;
-  b.addEventListener('click',function(){ v.play(); });
-  v.addEventListener('play',function(){ b.classList.add('hide'); if(!v.hasAttribute('controls')) v.setAttribute('controls',''); });
-  v.addEventListener('pause',function(){ if(v.currentTime>0 && !v.ended) return; b.classList.remove('hide'); });
-  v.addEventListener('ended',function(){ b.classList.remove('hide'); });
+  var v=document.getElementById('demoVideo');
+  if(!v) return;
+  v.muted=true; // asegura autoplay en todos los navegadores
+  var tryPlay=function(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); };
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tryPlay(); else v.pause(); }); },{threshold:0.25});
+    io.observe(v);
+  } else { tryPlay(); }
 })();
 </script>
 <a class="wa-fab" href="https://wa.me/5493731400700" target="_blank" rel="noopener" aria-label="Escribime por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg></a>
