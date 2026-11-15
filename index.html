@@ -1118,13 +1118,13 @@
    Observa el contenedor .stats (objetivo grande) con umbral bajo, para que
    dispare confiable también en mobile con scroll por inercia (fling). */
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var wrap = document.querySelector('.stats');
   var nums = wrap ? [].slice.call(wrap.querySelectorAll('.val[data-count]')) : [];
   if(!nums.length) return;
+  // El conteo es una animación suave de números: la dejamos correr siempre
+  // (también con "reducir movimiento") para que mobile se vea igual que PC.
   function run(el){
     var end = parseInt(el.getAttribute('data-count'),10) || 0;
-    if(reduce){ el.textContent = end; return; }
     var dur = 1200, st = null;
     function step(t){ if(st===null) st=t; var k=Math.min(1,(t-st)/dur);
       el.textContent = Math.round((1-Math.pow(1-k,3))*end);
@@ -1133,7 +1133,7 @@
   }
   var done = false;
   function runAll(){ if(done) return; done = true; nums.forEach(run); }
-  if(reduce || !('IntersectionObserver' in window)){ runAll(); return; }
+  if(!('IntersectionObserver' in window)){ runAll(); return; }
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ runAll(); io.disconnect(); } });
   }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
