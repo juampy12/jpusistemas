@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>document.documentElement.classList.add('js')</script>
 <title>JPUNTO — Sistemas que simplifican tu negocio</title>
-<meta name="description" content="Sistemas de punto de venta, automatización de negocios y asistentes con IA, hechos a medida por JPUNTO. Trabajo real, construido de punta a punta.">
+<meta name="description" content="Sistemas de punto de venta, automatización y asistentes con IA a medida para comercios de Charata (Chaco), Córdoba Capital y todo el NEA. Software hecho a medida por JPUNTO — primero la demo, después pagás.">
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jpuntosistemas.vercel.app/">
@@ -16,6 +16,31 @@
 <meta name="twitter:title" content="JPUNTO — Sistemas que simplifican tu negocio">
 <meta name="twitter:description" content="Sistemas POS, automatización y asistentes con IA, a medida.">
 <meta name="twitter:image" content="https://jpuntosistemas.vercel.app/deli-pos.png">
+<meta name="keywords" content="sistema punto de venta, POS a medida, software para comercios, punto de venta Chaco, sistema de ventas Córdoba, automatización de negocios, asistente IA para comercios, Charata, NEA">
+<meta name="author" content="Juan Pablo Urich — JPUNTO">
+<link rel="canonical" href="https://jpuntosistemas.vercel.app/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "JPUNTO — Sistemas a medida",
+  "description": "Sistemas de punto de venta, automatización y asistentes con IA, hechos a medida para comercios.",
+  "url": "https://jpuntosistemas.vercel.app/",
+  "image": "https://jpuntosistemas.vercel.app/deli-pos.png",
+  "telephone": "+5493731400700",
+  "priceRange": "$$",
+  "areaServed": [
+    { "@type": "City", "name": "Charata" },
+    { "@type": "City", "name": "Córdoba" },
+    { "@type": "AdministrativeArea", "name": "Chaco" },
+    { "@type": "AdministrativeArea", "name": "Nordeste Argentino (NEA)" }
+  ],
+  "address": { "@type": "PostalAddress", "addressLocality": "Charata", "addressRegion": "Chaco", "addressCountry": "AR" },
+  "founder": { "@type": "Person", "name": "Juan Pablo Urich" },
+  "sameAs": [ "https://www.linkedin.com/in/juan-pablo-urich-831298236/" ],
+  "serviceType": [ "Desarrollo de software a medida", "Sistemas de punto de venta", "Automatización de negocios", "Asistentes con IA" ]
+}
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,900;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
   /* ==== JPUNTO — tema claro corporativo. Blanco + azul marino protagonistas, azul eléctrico de acento. ==== */
@@ -451,7 +476,7 @@
   /* ==== intro profesional: grilla 3D + logo 3D + reveal + % + cortina ==== */
   .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;
     background:#0b2d5b;transform:translateY(0);
-    animation:introCurtain .8s cubic-bezier(.76,0,.24,1) 2.6s forwards}
+    animation:introCurtain .6s cubic-bezier(.76,0,.24,1) .7s forwards}
   .intro-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
   .intro-bg::before{content:"";position:absolute;left:50%;bottom:-16%;width:220%;height:95%;
     transform:translateX(-50%) perspective(420px) rotateX(60deg);transform-origin:50% 100%;
@@ -465,13 +490,13 @@
     background:radial-gradient(circle,rgba(37,99,235,.5),transparent 62%);filter:blur(10px);
     animation:introGlow 2.2s ease-in-out .3s both}
   .intro-core{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.3rem;perspective:1100px}
-  .intro-3d{transform-style:preserve-3d;animation:intro3d 1.2s cubic-bezier(.16,.84,.34,1) .15s both}
+  .intro-3d{transform-style:preserve-3d;animation:intro3d .65s cubic-bezier(.16,.84,.34,1) .05s both}
   .intro-logowrap{position:relative;overflow:hidden;line-height:0}
   .intro-logo{display:block;width:min(360px,76vw);height:auto;clip-path:inset(0 0 0 0);
-    animation:introWipe 1s cubic-bezier(.16,.84,.34,1) .3s both}
+    animation:introWipe .55s cubic-bezier(.16,.84,.34,1) .12s both}
   .intro-shine{position:absolute;inset:0;z-index:2;pointer-events:none;
     background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
-    transform:translateX(-130%);animation:introShine 1s ease .8s both}
+    transform:translateX(-130%);animation:introShine .6s ease .38s both}
   .intro-bar{width:min(220px,52vw);height:3px;border-radius:999px;background:rgba(255,255,255,.15);overflow:hidden}
   .intro-bar i{display:block;height:100%;width:100%;border-radius:999px;transform-origin:left;
     background:linear-gradient(90deg,#2563EB,#8fb3ff);width:0;transition:width .08s linear}
@@ -479,7 +504,7 @@
     color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
   .intro-skip{position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:0;right:0;
     text-align:center;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-    color:rgba(255,255,255,.5);opacity:0;animation:introFade .5s ease 1.5s forwards}
+    color:rgba(255,255,255,.5);opacity:0;animation:introFade .4s ease .45s forwards}
   @keyframes intro3d{from{opacity:.4;transform:rotateY(-42deg) rotateX(10deg) translateZ(-130px) scale(.88)}
     to{opacity:1;transform:rotateY(0) rotateX(0) translateZ(0) scale(1)}}
   @keyframes introWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
@@ -492,13 +517,13 @@
 
 
   @media (prefers-reduced-motion:reduce){
-    .intro{animation:introCurtain .8s cubic-bezier(.76,0,.24,1) 2.6s forwards!important}
-    .intro-3d{animation:intro3d 1.2s cubic-bezier(.16,.84,.34,1) .15s both!important}
-    .intro-logo{animation:introWipe 1s cubic-bezier(.16,.84,.34,1) .3s both!important}
-    .intro-shine{animation:introShine 1s ease .8s both!important}
+    .intro{animation:introCurtain .6s cubic-bezier(.76,0,.24,1) .7s forwards!important}
+    .intro-3d{animation:intro3d .65s cubic-bezier(.16,.84,.34,1) .05s both!important}
+    .intro-logo{animation:introWipe .55s cubic-bezier(.16,.84,.34,1) .12s both!important}
+    .intro-shine{animation:introShine .6s ease .38s both!important}
     .intro-bg::before{animation:introGrid 9s linear infinite!important}
     .intro-bg::after{animation:introGlow 2.2s ease-in-out .3s both!important}
-    .intro-skip{animation:introFade .5s ease 1.5s forwards!important}
+    .intro-skip{animation:introFade .4s ease .45s forwards!important}
   }
 
   /* ============================================================
@@ -599,6 +624,39 @@
   .hero h1 em.wipe{clip-path:inset(0 101% 0 -3%)}
   .hero h1 em.wipe.in{animation:heroWipe .9s cubic-bezier(.16,.84,.34,1) forwards}
 
+  /* ===== Mejoras de conversión (nov 2025) ===== */
+
+  /* #5 — sello de reversión de riesgo */
+  .guarantee{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--ff-mono);font-size:.76rem;
+    font-weight:700;letter-spacing:.01em;color:var(--good);background:rgba(29,159,110,.08);
+    border:1px solid rgba(29,159,110,.28);border-radius:999px;padding:.42rem .85rem}
+  .guarantee svg{width:15px;height:15px;flex:0 0 auto}
+  .hero .guarantee{margin-top:1.1rem}
+  .navy-demo .guarantee,.contact .guarantee{background:rgba(79,192,122,.12);border-color:rgba(79,192,122,.4);color:#8fe3b0}
+
+  /* #6 — barra de confianza bajo el hero */
+  .trustbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem .85rem;
+    margin-top:1.4rem;font-family:var(--ff-mono);font-size:.74rem;color:var(--fg-faint);letter-spacing:.02em}
+  .trustbar .ti{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+  .trustbar .ti svg{width:14px;height:14px;color:var(--blue);flex:0 0 auto}
+  .trustbar .sep{width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+  @media(max-width:480px){ .trustbar .sep{display:none} .trustbar{gap:.4rem .7rem} }
+
+  /* #8 — CTA fija en mobile */
+  .mobile-cta{display:none}
+  @media(max-width:720px){
+    .mobile-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;
+      align-items:center;justify-content:center;gap:.5rem;
+      background:var(--wa);color:var(--wa-ink);font-family:var(--ff-mono);font-weight:700;font-size:.92rem;
+      letter-spacing:.01em;text-decoration:none;
+      padding:.9rem 1rem calc(.9rem + env(safe-area-inset-bottom,0px));
+      box-shadow:0 -8px 22px -10px rgba(0,0,0,.3)}
+    .mobile-cta svg{width:20px;height:20px}
+    .mobile-cta:active{background:var(--wa-2)}
+    .wa-fab{display:none}                 /* la barra reemplaza al botón flotante en mobile */
+    footer{padding-bottom:calc(3rem + 62px)}
+  }
+
 </style>
 </head>
 <body>
@@ -621,7 +679,7 @@
   try{sessionStorage.setItem('jpu_intro','1');}catch(e){}
   var root=document.documentElement, prev=root.style.overflow; root.style.overflow='hidden';
   var pct=document.getElementById('introPct'), bar=document.querySelector('.intro-bar i');
-  var st=null,DUR=2150;
+  var st=null,DUR=600;
   function tick(t){ if(st===null)st=t; var k=Math.min(1,(t-st)/DUR);
     var v=Math.round((1-Math.pow(1-k,2))*100);
     if(pct)pct.textContent=v+'%'; if(bar)bar.style.width=v+'%';
@@ -633,7 +691,7 @@
     el.style.pointerEvents='none'; setTimeout(done,560); }
   el.addEventListener('click',skip);
   el.addEventListener('touchstart',function(){skip();},{passive:true});
-  setTimeout(done,3800);
+  setTimeout(done,1350);
 })();
 </script>
 
@@ -669,6 +727,16 @@
       <a class="btn btn-ghost" href="#sistemas">Ver sistemas</a>
     </div>
     <p class="cta-note">Consulta sin compromiso · Te respondo personalmente.</p>
+    <div style="display:flex;justify-content:center"><span class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Primero la demo, después pagás</span></div>
+    <div class="trustbar">
+      <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Charata, Chaco</span>
+      <span class="sep"></span>
+      <span class="ti">Córdoba Capital</span>
+      <span class="sep"></span>
+      <span class="ti">Todo el NEA</span>
+      <span class="sep"></span>
+      <span class="ti">100% a medida</span>
+    </div>
     <div class="mockstage">
     <div class="mockups" id="mockups">
       <figure class="mock bl"><div class="bar"><i></i><i></i><i></i></div><img src="gloria-home.png" alt="Sitio web de la Dra. Gloria Miranda con turnos online"></figure>
@@ -951,6 +1019,24 @@
 
 
 
+<section class="block" id="proceso">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>De la idea a tu sistema, en <em>3 pasos.</em></h2>
+      <p>Simple, sin vueltas y sin riesgo: ves cómo queda con tu negocio antes de poner un peso.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="snum">01</span><h3>Charlamos sin compromiso</h3><p>Me contás por WhatsApp qué necesitás ordenar o automatizar. Gratis y sin vueltas.</p></div>
+      <div class="step reveal"><span class="snum">02</span><h3>Te muestro una demo con tu negocio</h3><p>Ves tu sistema funcionando, hecho a tu medida, <b>antes</b> de pagar nada.</p></div>
+      <div class="step reveal"><span class="snum">03</span><h3>Lo usás y te doy soporte</h3><p>Lo pongo a andar, te enseño a usarlo y quedás con soporte directo conmigo.</p></div>
+    </div>
+    <div class="sec-cta reveal">
+      <a class="btn btn-gold" href="https://wa.me/5493731400700" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>Pedí tu demo gratis</a>
+    </div>
+  </div>
+</section>
+
 <section class="block band" id="precio">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1027,6 +1113,7 @@
         </a>
       </div>
       <p class="cta-note">Respondo rápido por WhatsApp. La primera charla es sin compromiso.</p>
+      <div style="margin-top:.9rem"><span class="guarantee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Primero la demo, después pagás</span></div>
       <div class="contact-grid">
         <div class="ctc">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
@@ -1114,6 +1201,7 @@
 })();
 </script>
 <a class="wa-fab" href="https://wa.me/5493731400700" target="_blank" rel="noopener" aria-label="Escribime por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg></a>
+<a class="mobile-cta" href="https://wa.me/5493731400700" target="_blank" rel="noopener" aria-label="Pedí tu demo gratis por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.4-.5.5-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.8.8 2.1 1 .3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>Pedí tu demo gratis</a>
 <div class="lb" id="lb" aria-hidden="true"><button class="lb-x" type="button" aria-label="Cerrar">&times;</button><img class="lb-img" alt=""><div class="lb-hint">Pellizcá para acercar · tocá afuera para cerrar</div></div>
 <script>
 (function(){
