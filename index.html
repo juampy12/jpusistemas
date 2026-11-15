@@ -345,15 +345,23 @@
 
   /* ---- circuito vertical en mobile + FAB mas chico ---- */
   .flow-mobile{display:none}
-  .fm-node{width:min(240px,82%);text-align:center;background:#fff;border:1px solid var(--line-2);
+  .fm-node{width:min(260px,86%);display:flex;align-items:center;justify-content:center;gap:.55rem;
+    background:#fff;border:1px solid var(--line-2);
     border-radius:12px;padding:.7rem 1rem;font-weight:600;color:var(--navy);box-shadow:0 1px 2px var(--shadow)}
+  .flow-mobile .fm-ic{width:19px;height:19px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .fm-node.src{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
   .fm-arrow{width:2px;height:16px;background:var(--blue);opacity:.55;border-radius:2px}
   .fm-ai{margin-top:1rem;width:min(300px,92%);text-align:center;background:var(--blue-soft);
     border:1px solid var(--blue);border-radius:14px;padding:.8rem 1rem}
   .fm-ai b{display:block;color:var(--blue);font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.08em;
     text-transform:uppercase;margin-bottom:.25rem}
-  .fm-ai span{color:var(--fg-dim);font-size:.9rem;line-height:1.45}
+  .fm-ai .fm-ai-sub{color:var(--fg-dim);font-size:.9rem;line-height:1.45;display:block}
+  .fm-alert{display:inline-flex;align-items:center;gap:.45rem;margin-top:.7rem;
+    background:#fff;border:1px solid var(--blue);border-radius:999px;padding:.35rem .72rem;
+    font-size:.82rem;font-weight:600;color:var(--navy)}
+  .fm-alert .fm-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex:0 0 auto;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+  .fm-alert.warn .fm-dot{background:#ef9d1a;box-shadow:0 0 0 3px rgba(239,157,26,.2)}
+  .fm-alert.ok .fm-dot{background:var(--good);box-shadow:0 0 0 3px rgba(29,159,110,.2)}
   @media (max-width:720px){
     .flow3d > figure,.flow-sec .scan{display:none}
     .flow-cap{display:none}
@@ -372,8 +380,14 @@
   .flow-mobile>div:nth-child(6)::after{animation-delay:.36s}
   .flow-mobile>div:nth-child(8)::after{animation-delay:.54s}
   @keyframes fmflow{0%{transform:translateY(0);opacity:0}25%{opacity:1}75%{opacity:1}100%{transform:translateY(17px);opacity:0}}
-  .fm-node.src{animation:fmglow 2.6s ease-in-out infinite}
-  @keyframes fmglow{0%,100%{box-shadow:0 0 0 3px var(--blue-soft)}50%{box-shadow:0 0 0 3px var(--blue-soft),0 0 16px -2px rgba(37,99,235,.5)}}
+  /* la "venta" recorre y enciende cada nodo en secuencia (igual que en PC) */
+  @keyframes fmLit{0%,100%{border-color:var(--line-2);background:#fff;color:var(--navy)}
+    7%,15%{border-color:var(--blue);background:var(--blue-soft);color:var(--blue)}}
+  .flow-mobile .fm-node{animation:fmLit 5s ease-in-out infinite}
+  .flow-mobile .fm-node.m2{animation-delay:.55s}
+  .flow-mobile .fm-node.m3{animation-delay:1.1s}
+  .flow-mobile .fm-node.m4{animation-delay:1.65s}
+  .flow-mobile .fm-node.m5{animation-delay:2.2s}
   .fm-ai{animation:fmpulse 2.6s ease-in-out infinite}
   @keyframes fmpulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.25)}50%{box-shadow:0 0 0 8px rgba(37,99,235,0)}}
 
@@ -385,7 +399,11 @@
     .flow-mobile>div:nth-child(4)::after{animation-delay:.18s!important}
     .flow-mobile>div:nth-child(6)::after{animation-delay:.36s!important}
     .flow-mobile>div:nth-child(8)::after{animation-delay:.54s!important}
-    .fm-node.src{animation:fmglow 2.6s ease-in-out infinite!important}
+    .flow-mobile .fm-node{animation:fmLit 5s ease-in-out infinite!important}
+    .flow-mobile .fm-node.m2{animation-delay:.55s!important}
+    .flow-mobile .fm-node.m3{animation-delay:1.1s!important}
+    .flow-mobile .fm-node.m4{animation-delay:1.65s!important}
+    .flow-mobile .fm-node.m5{animation-delay:2.2s!important}
     .fm-ai{animation:fmpulse 2.6s ease-in-out infinite!important}
   }
 
@@ -799,12 +817,16 @@
         </figure>
         <div class="ai-chip" id="aiChip" aria-hidden="true"><span class="ai-dot"></span><span class="ai-txt"></span></div>
         <div class="flow-mobile" aria-hidden="true">
-          <div class="fm-node">Venta</div><div class="fm-arrow"></div>
-          <div class="fm-node">Pago</div><div class="fm-arrow"></div>
-          <div class="fm-node src">Stock</div><div class="fm-arrow"></div>
-          <div class="fm-node src">Caja</div><div class="fm-arrow"></div>
-          <div class="fm-node">Reportes</div>
-          <div class="fm-ai"><b>Asistente IA</b><span>Lee Stock y Caja en tiempo real y te avisa lo que importa.</span></div>
+          <div class="fm-node m1"><svg class="fm-ic" viewBox="0 0 24 24"><path d="M3 4h2l2.2 11h10l2-7H6.5"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>Venta</div><div class="fm-arrow"></div>
+          <div class="fm-node m2"><svg class="fm-ic" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Pago</div><div class="fm-arrow"></div>
+          <div class="fm-node m3"><svg class="fm-ic" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/></svg>Stock</div><div class="fm-arrow"></div>
+          <div class="fm-node m4"><svg class="fm-ic" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Caja</div><div class="fm-arrow"></div>
+          <div class="fm-node m5"><svg class="fm-ic" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reportes</div>
+          <div class="fm-ai">
+            <b>Asistente IA</b>
+            <span class="fm-ai-sub">Lee Stock y Caja en tiempo real y te avisa lo que importa.</span>
+            <span class="fm-alert warn" id="fmAlert"><span class="fm-dot"></span><span class="fm-alert-txt">Stock crítico: Coca 2L · 3 u.</span></span>
+          </div>
         </div>
       </div>
       <p class="flow-cap">Venta → Pago → Stock → Caja → Reportes · la IA lee todo y te avisa</p>
@@ -1178,6 +1200,26 @@
     setTimeout(function(){ chip.classList.remove('show'); }, 2600);
   }
   setTimeout(function(){ tick(); setInterval(tick, CYCLE); }, 1100);
+})();
+
+/* #1 (mobile) — alerta de la IA que rota ejemplos en el circuito vertical */
+(function(){
+  var el = document.getElementById('fmAlert'); if(!el) return;
+  var txt = el.querySelector('.fm-alert-txt');
+  var msgs = [
+    { t:'Stock crítico: Coca 2L · 3 u.', k:'warn' },
+    { t:'Caja del día: cuadrada',        k:'ok'   },
+    { t:'Subí el margen de Fernet',      k:'tip'  },
+    { t:'Faltante: Pan lactal',          k:'warn' }
+  ];
+  var i = 0;
+  function tick(){
+    var m = msgs[i % msgs.length]; i++;
+    el.classList.remove('warn','ok','tip'); if(m.k) el.classList.add(m.k);
+    txt.textContent = m.t;
+  }
+  tick();
+  setInterval(tick, 2800);
 })();
 
 /* #5 — tooltip al pasar el mouse por cada nodo del circuito */
