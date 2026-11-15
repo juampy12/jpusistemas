@@ -542,6 +542,10 @@
     box-shadow:0 0 0 4px rgba(37,99,235,.15)}
   .ai-chip.warn .ai-dot{background:#ef9d1a;box-shadow:0 0 0 4px rgba(239,157,26,.2)}
   .ai-chip.ok .ai-dot{background:var(--good);box-shadow:0 0 0 4px rgba(29,159,110,.2)}
+  /* el chip rota también con "reducir movimiento": mantenemos su transición suave */
+  @media (prefers-reduced-motion:reduce){
+    .ai-chip{transition:opacity .35s ease,transform .35s ease!important}
+  }
 
   /* #5 — tooltip al pasar el mouse por cada nodo */
   .flow-tip{position:absolute;z-index:4;background:var(--navy);color:#fff;font-family:var(--ff-body);
@@ -1191,8 +1195,7 @@
     { t:'Faltante: Pan lactal',          k:'warn' }
   ];
   function set(m){ chip.classList.remove('warn','ok','tip'); if(m.k) chip.classList.add(m.k); txt.textContent = m.t; }
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ set(msgs[0]); chip.classList.add('show'); return; }
+  // rota siempre (también con "reducir movimiento"), igual que en mobile
   var i = 0, CYCLE = 4800;
   function tick(){
     set(msgs[i % msgs.length]); i++;
