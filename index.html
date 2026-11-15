@@ -1227,6 +1227,8 @@
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce || !window.gsap || !window.ScrollTrigger) return;
+  // en mobile el SVG del circuito está oculto y se usa la versión vertical (.flow-mobile): no activamos GSAP
+  if(window.matchMedia('(max-width:720px)').matches) return;
   var sec = document.querySelector('.flow-sec');
   var svg = sec && sec.querySelector('.flow3d svg');
   if(!sec || !svg) return;
