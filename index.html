@@ -1114,10 +1114,13 @@
 })();
 </script>
 <script>
-/* #4 — contadores: cuentan hasta el valor al entrar en pantalla */
+/* #4 — contadores: cuentan hasta el valor al entrar en pantalla.
+   Observa el contenedor .stats (objetivo grande) con umbral bajo, para que
+   dispare confiable también en mobile con scroll por inercia (fling). */
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var nums = [].slice.call(document.querySelectorAll('.val[data-count]'));
+  var wrap = document.querySelector('.stats');
+  var nums = wrap ? [].slice.call(wrap.querySelectorAll('.val[data-count]')) : [];
   if(!nums.length) return;
   function run(el){
     var end = parseInt(el.getAttribute('data-count'),10) || 0;
@@ -1128,11 +1131,19 @@
       if(k<1) requestAnimationFrame(step); }
     requestAnimationFrame(step);
   }
-  if(reduce || !('IntersectionObserver' in window)){ nums.forEach(run); return; }
+  var done = false;
+  function runAll(){ if(done) return; done = true; nums.forEach(run); }
+  if(reduce || !('IntersectionObserver' in window)){ runAll(); return; }
   var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } });
-  }, { threshold: 0.6 });
-  nums.forEach(function(n){ io.observe(n); });
+    es.forEach(function(e){ if(e.isIntersecting){ runAll(); io.disconnect(); } });
+  }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+  io.observe(wrap);
+  // fallback: si ya está en pantalla o el observer no alcanzó a disparar
+  setTimeout(function(){
+    if(done) return;
+    var r = wrap.getBoundingClientRect();
+    if(r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0) runAll();
+  }, 800);
 })();
 
 /* #1 — chip de alerta de la IA: rota ejemplos y aparece cuando la secuencia "lee" Stock/Caja */
