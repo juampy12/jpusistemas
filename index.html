@@ -534,6 +534,13 @@
     100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
   }
 
+  /* #6 — la frase en itálica del hero se "dibuja" de izquierda a derecha.
+     El clip solo se aplica cuando el JS agrega .wipe, así sin JS (o con JS
+     fallido) el título queda siempre visible. */
+  @keyframes heroWipe{from{clip-path:inset(0 101% 0 -3%)}to{clip-path:inset(0 -3% 0 -3%)}}
+  .hero h1 em.wipe{clip-path:inset(0 101% 0 -3%)}
+  .hero h1 em.wipe.in{animation:heroWipe .9s cubic-bezier(.16,.84,.34,1) forwards}
+
 </style>
 </head>
 <body>
@@ -1077,6 +1084,28 @@
     es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } });
   }, { threshold: 0.6 });
   nums.forEach(function(n){ io.observe(n); });
+})();
+
+/* #6 — dibuja la frase en itálica del hero cuando la intro se va.
+   Si hay reduced-motion o falla el JS, el título queda visible (nunca se oculta). */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var em = document.querySelector('.hero h1 em');
+  if(!em || reduce) return;
+  em.classList.add('wipe');
+  var done = false;
+  function reveal(){ if(done) return; done = true; em.classList.add('in'); }
+  if(document.getElementById('intro')){
+    var t0 = Date.now();
+    (function wait(){
+      if(!document.getElementById('intro')){ setTimeout(reveal, 160); return; }
+      if(Date.now() - t0 > 5200){ reveal(); return; }   // por si la intro se demora
+      requestAnimationFrame(wait);
+    })();
+  } else {
+    setTimeout(reveal, 180);   // visitas repetidas (sin intro)
+  }
+  setTimeout(reveal, 6000);    // fallback duro: nunca dejar el texto oculto
 })();
 
 /* #5 — scroll-spy: resalta en el nav la sección que estás mirando */
