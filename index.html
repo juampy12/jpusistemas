@@ -710,6 +710,26 @@
   /* botón "Agendá tu demo" con icono de calendario */
   .btn-cal svg{width:17px;height:17px}
 
+  /* ===== Sección "Pedidos online" (gastronomía) ===== */
+  .navy-order{background:radial-gradient(75% 130% at 18% 0%,rgba(232,86,63,.26),transparent 58%),var(--navy)}
+  .navy-order .eyebrow,.navy-order .eyebrow .dot{color:#ffb4a2;background-color:transparent}
+  .navy-order .eyebrow .dot{background:#ffb4a2}
+  .order-grid{display:grid;grid-template-columns:1fr minmax(0,330px);gap:clamp(1.6rem,4vw,3.4rem);align-items:center}
+  .order-copy h2{font-family:var(--ff-display);font-weight:600;font-size:clamp(1.9rem,4.2vw,3rem);
+    color:#fff;margin-top:.7rem;line-height:1.06;letter-spacing:-.01em}
+  .order-copy h2 em{font-style:italic;color:#ff8a70}
+  .order-copy > p{color:rgba(255,255,255,.85);margin-top:.95rem;font-size:1.05rem;max-width:46ch}
+  .order-points{list-style:none;margin:1.3rem 0 1.7rem;padding:0;display:grid;gap:.6rem}
+  .order-points li{display:flex;gap:.55rem;align-items:flex-start;color:rgba(255,255,255,.92);font-size:1rem}
+  .order-points li svg{width:19px;height:19px;color:#ff8a70;flex:0 0 auto;margin-top:.12rem}
+  .btn-order{background:#e8563f;color:#fff;border:none}
+  .btn-order:hover{background:#c7402c;transform:translateY(-2px)}
+  .order-phone{display:flex;justify-content:center}
+  .order-phone .phone{width:min(300px,76vw);border:9px solid #0a1a33;border-radius:36px;overflow:hidden;
+    background:#0a1a33;box-shadow:0 44px 90px -34px rgba(0,0,0,.7)}
+  .order-phone .phone img{display:block;width:100%}
+  @media(max-width:860px){ .order-grid{grid-template-columns:1fr} .order-phone{order:-1;margin-bottom:.4rem} }
+
 </style>
 </head>
 <body>
@@ -884,6 +904,32 @@
       <div class="rubro reveal">  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8V20h3.2l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.4 2.4-2.3-.6-.6-2.3z"/></svg></div><h3>Ferreterías y corralones</h3></div>
     </div>
     <p class="rubro-note reveal">¿No ves el tuyo? <a href="https://wa.me/5493731400700" target="_blank" rel="noopener">Escribime</a> y lo vemos.</p>
+  </div>
+</section>
+
+<section class="block navy-order" id="pedidos">
+  <div class="wrap order-grid">
+    <div class="order-copy reveal">
+      <span class="eyebrow"><span class="dot"></span>Nuevo · Para gastronomía</span>
+      <h2>¿Vendés comida? Que te pidan <em>desde el celular.</em></h2>
+      <p>Un menú digital propio: tu cliente escanea, arma el pedido y te lo manda en 2 toques. Sin comisiones de apps de delivery.</p>
+      <ul class="order-points">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Menú con fotos, categorías y combos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Pago por transferencia (con alias) o efectivo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Seguimiento en vivo: confirmado → en camino → entregado</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>El pedido te llega por WhatsApp y a tu panel</li>
+      </ul>
+      <div class="cta-row" style="justify-content:flex-start;margin-top:0">
+        <a class="btn btn-order" href="demo.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Probá la demo
+        </a>
+        <a class="btn" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)" href="https://wa.me/5493731400700?text=Hola!%20Quiero%20un%20men%C3%BA%20de%20pedidos%20online%20para%20mi%20negocio." target="_blank" rel="noopener">Quiero uno así</a>
+      </div>
+    </div>
+    <div class="order-phone reveal">
+      <div class="phone"><img src="demo-shot.png" alt="Demo del menú digital de pedidos de La Esquina en el celular" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
