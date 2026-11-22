@@ -735,26 +735,53 @@
       if(on) rects+='<rect x="'+(c*cell)+'" y="'+(r*cell)+'" width="'+cell+'" height="'+cell+'"/>'; } }
     return '<svg viewBox="0 0 '+size+' '+size+'" width="88" height="88" shape-rendering="crispEdges" fill="#172b46" aria-label="QR del comprobante">'+rects+'</svg>';
   }
-  function renderFactura(sale){
+  function fISO(s){ var p=String(s).split('-'); return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : s; }
+  function renderComprobante(c){
+    var rows=(c.items||[]).map(function(it){
+      var n=it.nombre!=null?it.nombre:it.n, cant=it.cantidad!=null?it.cantidad:it.q, pu=it.precioUnit!=null?it.precioUnit:it.p;
+      return '<tr><td>'+cant+'</td><td>'+esc(n)+'</td><td class="r">'+money(pu)+'</td><td class="r">'+money(pu*cant)+'</td></tr>';
+    }).join('');
+    var pv=c.comprobante.ptoVta, nro=c.comprobante.numero, cae=String(c.cae);
+    var fuente=c.modo==='demo' ? 'Autorizado por el servicio de facturación (modo prueba).' : 'Comprobante de muestra.';
+    qs('#facSheet').innerHTML=
+      '<div class="f-head">'+
+        '<div class="f-emisor"><div class="f-logo">'+c.comprobante.letra+'</div><b>'+esc(c.emisor.razonSocial)+'</b><div class="f-sub">Responsable Monotributo</div><div class="f-sub">CUIT '+c.emisor.cuit+'</div><div class="f-sub">Av. Siempreviva 742 · Charata, Chaco</div></div>'+
+        '<div class="f-letter"><span class="L">'+c.comprobante.letra+'</span><small>Cód. 011</small></div>'+
+        '<div class="f-comp"><b>FACTURA</b><div class="f-sub">Punto de Venta: '+pad(pv,4)+'</div><div class="f-sub">Comp. Nro: '+pad(nro,8)+'</div><div class="f-sub">Fecha: '+fISO(c.comprobante.fecha)+'</div></div>'+
+      '</div>'+
+      '<div class="f-rec"><div><span class="f-k">Cliente:</span> Consumidor Final</div><div><span class="f-k">Condición IVA:</span> Consumidor Final</div></div>'+
+      '<table class="f-table"><thead><tr><th>Cant.</th><th>Descripción</th><th class="r">P. Unit.</th><th class="r">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<div class="f-tot"><div class="f-tline"><span>Subtotal</span><span>'+money(c.importes.total)+'</span></div><div class="f-tline big"><span>Total</span><span>'+money(c.importes.total)+'</span></div></div>'+
+      '<div class="f-cae"><div class="f-qr">'+demoQR(parseInt(cae.slice(-7),10)||nro)+'</div>'+
+        '<div class="f-caeinfo"><div class="f-ok">✓ Comprobante autorizado por ARCA</div><div class="f-sub">CAE N°: '+esc(cae)+'</div><div class="f-sub">Vto. CAE: '+fISO(c.caeVto)+'</div>'+
+        '<div class="f-sub f-note">'+fuente+' En producción, ARCA devuelve el CAE en vivo con el CUIT del comercio.</div></div></div>';
+    qs('#facBg').classList.add('open');
+  }
+  function buildLocal(sale){
     facNum++;
     var now=new Date(), vto=new Date(now.getTime()+10*86400000), cae='';
     for(var i=0;i<14;i++) cae+=Math.floor(Math.random()*10);
-    var rows=sale.items.map(function(it){ return '<tr><td>'+it.q+'</td><td>'+esc(it.n)+'</td><td class="r">'+money(it.p)+'</td><td class="r">'+money(it.p*it.q)+'</td></tr>'; }).join('');
-    qs('#facSheet').innerHTML=
-      '<div class="f-head">'+
-        '<div class="f-emisor"><div class="f-logo">C</div><b>Comercio Demo</b><div class="f-sub">Responsable Monotributo</div><div class="f-sub">CUIT 30-71234567-9</div><div class="f-sub">Av. Siempreviva 742 · Charata, Chaco</div></div>'+
-        '<div class="f-letter"><span class="L">C</span><small>Cód. 011</small></div>'+
-        '<div class="f-comp"><b>FACTURA</b><div class="f-sub">Punto de Venta: 0001</div><div class="f-sub">Comp. Nro: '+pad(facNum,8)+'</div><div class="f-sub">Fecha: '+fdate(now)+'</div></div>'+
-      '</div>'+
-      '<div class="f-rec"><div><span class="f-k">Cliente:</span> Consumidor Final</div><div><span class="f-k">Condición IVA:</span> Consumidor Final</div><div><span class="f-k">Condición de venta:</span> '+PAYS[sale.pay]+'</div></div>'+
-      '<table class="f-table"><thead><tr><th>Cant.</th><th>Descripción</th><th class="r">P. Unit.</th><th class="r">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>'+
-      '<div class="f-tot"><div class="f-tline"><span>Subtotal</span><span>'+money(sale.total)+'</span></div><div class="f-tline big"><span>Total</span><span>'+money(sale.total)+'</span></div></div>'+
-      '<div class="f-cae"><div class="f-qr">'+demoQR(facNum*7+sale.total)+'</div>'+
-        '<div class="f-caeinfo"><div class="f-ok">✓ Comprobante autorizado por ARCA</div><div class="f-sub">CAE N°: '+cae+'</div><div class="f-sub">Vto. CAE: '+fdate(vto)+'</div>'+
-        '<div class="f-sub f-note">Demostración. En tu sistema, ARCA devuelve el CAE en tiempo real al cobrar, con el CUIT del comercio.</div></div></div>';
-    qs('#facBg').classList.add('open');
+    function iso(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1,2)+'-'+pad(d.getDate(),2); }
+    return {
+      modo:'local',
+      emisor:{ razonSocial:'Comercio Demo', cuit:30711234567, condicion:'monotributo' },
+      comprobante:{ letra:'C', ptoVta:1, numero:facNum, fecha:iso(now) },
+      receptor:{ condicion:'consumidor_final' },
+      importes:{ neto:sale.total, iva:0, total:sale.total },
+      items: sale.items.map(function(i){ return {nombre:i.n,cantidad:i.q,precioUnit:i.p}; }),
+      cae:cae, caeVto:iso(vto)
+    };
   }
-  qs('#okFac').addEventListener('click',function(){ if(lastSale) renderFactura(lastSale); });
+  qs('#okFac').addEventListener('click',function(){
+    if(!lastSale) return;
+    var btn=this; btn.disabled=true;
+    var payload={ items:lastSale.items.map(function(i){ return {nombre:i.n,cantidad:i.q,precioUnit:i.p}; }), total:lastSale.total };
+    fetch('/api/facturar',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+      .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
+      .then(function(c){ renderComprobante(c); })
+      .catch(function(){ renderComprobante(buildLocal(lastSale)); })
+      .then(function(){ btn.disabled=false; });
+  });
   function closeFac(){ qs('#facBg').classList.remove('open'); }
   qs('#facX').addEventListener('click',closeFac);
   qs('#facDone').addEventListener('click',closeFac);
