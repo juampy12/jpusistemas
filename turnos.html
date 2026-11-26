@@ -136,6 +136,22 @@
   .pitch a.wa svg{width:18px;height:18px}
   .pitch .back-home{display:block;margin-top:.9rem;color:rgba(255,255,255,.6);font-size:.8rem;text-decoration:none}
 
+  /* datos recordados en este celular */
+  .welcome{background:var(--accent-soft);color:var(--accent-2);border-radius:11px;padding:.6rem .8rem;font-size:.86rem;font-weight:600;margin-bottom:.8rem}
+
+  /* reseñas (prueba social) */
+  .reviews-sec{padding:1.6rem 0 .6rem}
+  .rv-head{text-align:center;margin-bottom:1rem}
+  .rv-head .stars{color:var(--accent);font-size:1.15rem;letter-spacing:3px}
+  .rv-head b{display:block;font-size:1.15rem;font-weight:800;margin-top:.25rem}
+  .rv-head span{font-size:.75rem;color:var(--muted)}
+  .rv{display:grid;gap:.6rem}
+  .rv-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem}
+  .rv-card .stars{color:var(--accent);font-size:.78rem;letter-spacing:1px}
+  .rv-card p{margin:.35rem 0 .3rem;font-size:.92rem;line-height:1.5}
+  .rv-card .who{font-size:.82rem;color:var(--muted);font-weight:600}
+  .rv-google{display:block;text-align:center;margin:1rem auto 0;font-size:.88rem;color:var(--accent-2);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -144,9 +160,9 @@
   <div class="madeby"><span class="dot"></span>Sistema de turnos online hecho con <b>JPUNTO</b> · demostración</div>
 
   <header class="shop">
-    <div class="logo">B</div>
-    <h1>La Barbería</h1>
-    <div class="tag">Reservá tu turno online · sin esperar respuesta</div>
+    <div class="logo">T</div>
+    <h1>Tavo</h1>
+    <div class="tag">Barbería · reservá tu turno en 3 toques</div>
     <div class="meta">
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Charata, Chaco</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mar a Sáb · 10–13 y 16–20</span>
@@ -184,6 +200,7 @@
       <button class="back" data-to="2" type="button">← Cambiar horario</button>
       <h2 class="sec-title">Confirmá tu turno</h2>
       <p class="sec-sub">Último paso: dejanos tus datos.</p>
+      <p class="welcome" id="welcome" hidden></p>
       <div class="resumen" id="resumen"></div>
       <div class="field"><label for="nm">Tu nombre</label><input id="nm" type="text" placeholder="Nombre y apellido" autocomplete="name"></div>
       <div class="field"><label for="ph">Tu WhatsApp</label><input id="ph" type="tel" inputmode="numeric" placeholder="Ej: 3731 40-0700" autocomplete="tel"></div>
@@ -218,6 +235,22 @@
       <p class="ag-note">Así ves tu día de un vistazo. Cada turno nuevo te entra solo —y al WhatsApp— sin que tengas que ir respondiendo mensajes uno por uno.</p>
     </div>
   </div>
+
+  <section class="reviews-sec">
+    <div class="wrap">
+      <div class="rv-head">
+        <div class="stars">★★★★★</div>
+        <b>Lo que dicen los clientes</b>
+        <span>reseñas de ejemplo · se conectan con tu Google real</span>
+      </div>
+      <div class="rv">
+        <div class="rv-card"><div class="stars">★★★★★</div><p>“Siempre impecable. Saco turno del celu en 10 segundos y no espero más.”</p><span class="who">— Nahuel</span></div>
+        <div class="rv-card"><div class="stars">★★★★★</div><p>“El mejor corte de la zona. Y ahora reservar es facilísimo.”</p><span class="who">— Bruno</span></div>
+        <div class="rv-card"><div class="stars">★★★★★</div><p>“Puntual y prolijo. Me llega el recordatorio y listo.”</p><span class="who">— Facu</span></div>
+      </div>
+      <a class="rv-google" href="#" target="_blank" rel="noopener">Ver reseñas en Google →</a>
+    </div>
+  </section>
 
   <section class="pitch">
     <h3>Lo que resolvés con esto</h3>
@@ -328,6 +361,7 @@
     qs('#doneSub').textContent=nm.value.trim()+', te esperamos.';
     qs('#doneSvc').textContent=state.svc.n+' · '+money(state.svc.p);
     qs('#doneWhen').textContent=dayLabel(state.dayIdx)+' · '+state.time+' hs';
+    try{ localStorage.setItem('tavo_cliente', JSON.stringify({n:nm.value.trim(), p:ph.value.trim()})); }catch(e){}
     buildICS();
     go('done');
   });
@@ -339,8 +373,8 @@
     var end=new Date(start.getTime()+state.svc.min*60000);
     function z(dt){ return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate())+'T'+pad(dt.getHours())+pad(dt.getMinutes())+'00'; }
     var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JPUNTO//Turnos//ES','BEGIN:VEVENT',
-      'DTSTART:'+z(start),'DTEND:'+z(end),'SUMMARY:'+state.svc.n+' - La Barbería',
-      'DESCRIPTION:Turno reservado con La Barbería','LOCATION:La Barbería - Charata, Chaco','END:VEVENT','END:VCALENDAR'].join('\r\n');
+      'DTSTART:'+z(start),'DTEND:'+z(end),'SUMMARY:'+state.svc.n+' - Tavo',
+      'DESCRIPTION:Turno reservado con Tavo','LOCATION:Tavo Barbería - Charata, Chaco','END:VEVENT','END:VCALENDAR'].join('\r\n');
     qs('#icsBtn').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
   }
 
@@ -382,6 +416,12 @@
   qs('#ownerBtn').addEventListener('click',openAgenda);
   qs('#agX').addEventListener('click',function(){ qs('#agBg').classList.remove('open'); });
   qs('#agBg').addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
+
+  // recordar datos del cliente en este celular (sin servidor)
+  try{ var _s=JSON.parse(localStorage.getItem('tavo_cliente')||'null');
+    if(_s && _s.n){ nm.value=_s.n; ph.value=_s.p||''; checkForm();
+      var _w=qs('#welcome'); if(_w){ _w.textContent='¡Hola de nuevo, '+_s.n+'! Ya cargamos tus datos — solo elegí el horario.'; _w.hidden=false; } }
+  }catch(e){}
 })();
 </script>
 </body>
